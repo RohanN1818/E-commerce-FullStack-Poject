@@ -11,11 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-
+@CrossOrigin(origins = "https://e-commerce-full-stack-rohan.vercel.app")
 @RestController
 @RequestMapping("/api")
-//@CrossOrigin(origins = "http://localhost:5173", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
-
 public class Productcontroller {
     @Autowired
   private ProductService service;
