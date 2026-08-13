@@ -8,20 +8,23 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 import java.util.List;
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
+
 @RestController
 @RequestMapping("/api")
 public class Productcontroller {
     @Autowired
   private ProductService service;
      @GetMapping("/products")
-      public ResponseEntity<List<ProductTable>>  getPoducts(){
-         return new ResponseEntity<>( service.getProduct(), HttpStatus.OK);
+      public ResponseEntity<List<ProductTable>> getPoducts(){
+    List<ProductTable> products = service.getProduct();
+    for (ProductTable p : products) {
+        p.setImageData(null);
     }
+    return new ResponseEntity<>(products, HttpStatus.OK);
+}
     @GetMapping("/product/{id}")
     public ResponseEntity< ProductTable> getProduct(@PathVariable int id){
          ProductTable product = service.getProductById(id);
