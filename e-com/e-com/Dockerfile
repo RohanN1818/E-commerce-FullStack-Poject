@@ -1,5 +1,5 @@
-# Stage 1: Build stage using Java 21
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+# Stage 1: Build stage using official Maven + OpenJDK 21
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Copy pom.xml and source code
@@ -7,7 +7,7 @@ COPY pom.xml .
 COPY src ./src
 
 # Package application into a runnable JAR file
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -Dmaven.compiler.source=21 -Dmaven.compiler.target=21
 
 # Stage 2: Run stage using Java 21 JRE
 FROM eclipse-temurin:21-jre
